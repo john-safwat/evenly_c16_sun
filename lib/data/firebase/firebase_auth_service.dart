@@ -24,4 +24,8 @@ class FirebaseAuthService {
       password: password,
     );
   }
+
+  static User? getUerData(){
+    return firebaseAuth.currentUser;
+  }
 }

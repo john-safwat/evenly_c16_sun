@@ -1,7 +1,8 @@
 import 'package:evently_c16_sun/core/providers/app_config_provider.dart';
 import 'package:evently_c16_sun/core/theme/app_colors.dart';
+import 'package:evently_c16_sun/ui/events_managment/event_management_screen.dart';
 import 'package:evently_c16_sun/ui/home/tabs/favorite_tab.dart';
-import 'package:evently_c16_sun/ui/home/tabs/home_tab.dart';
+import 'package:evently_c16_sun/ui/home/tabs/home/home_tab.dart';
 import 'package:evently_c16_sun/ui/home/tabs/map_tab.dart';
 import 'package:evently_c16_sun/ui/home/tabs/profile_tab.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(children: [Expanded(child: tabs[selectedIndex])]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, EventManagementScreen.routeName);
+        },
         elevation: 0,
         foregroundColor: AppColors.offWhite,
         backgroundColor:
@@ -46,11 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
           if (index == 2) {
+            Navigator.pushNamed(context, EventManagementScreen.routeName);
+
             return;
           }
           if (index == 3 || index == 4) {
             index--;
           }
+
           setState(() {
             selectedIndex = index;
           });

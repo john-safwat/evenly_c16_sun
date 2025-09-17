@@ -3,6 +3,7 @@ import 'package:evently_c16_sun/core/theme/app_theme.dart';
 import 'package:evently_c16_sun/l10n/translations/app_localizations.dart';
 import 'package:evently_c16_sun/ui/auth/login_screen.dart';
 import 'package:evently_c16_sun/ui/auth/register_screen.dart';
+import 'package:evently_c16_sun/ui/events_managment/event_management_screen.dart';
 import 'package:evently_c16_sun/ui/home/home_screen.dart';
 import 'package:evently_c16_sun/ui/setup_screen/setup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (_) => LoginScreen(),
         RegisterScreen.routeName: (_) => RegisterScreen(),
         HomeScreen.routeName: (_) => HomeScreen(),
+        EventManagementScreen.routeName: (_) => EventManagementScreen(),
       },
       initialRoute: loggedIn ? HomeScreen.routeName : SetupScreen.routeName,
     );
