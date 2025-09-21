@@ -1,13 +1,23 @@
 import 'package:evently_c16_sun/core/providers/app_config_provider.dart';
 import 'package:evently_c16_sun/core/theme/app_colors.dart';
+import 'package:evently_c16_sun/data/models/category.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UserDataCard extends StatefulWidget {
   final User? user;
+  final Category selectedCategory;
+  final List<Category> categories;
+  final Function(int) changeSelectedCategory;
 
-  const UserDataCard({this.user, super.key});
+  const UserDataCard({
+    this.user,
+    required this.selectedCategory,
+    required this.categories,
+    required this.changeSelectedCategory,
+    super.key,
+  });
 
   @override
   State<UserDataCard> createState() => _UserDataCardState();
@@ -109,17 +119,77 @@ class _UserDataCardState extends State<UserDataCard> {
                           ? AppColors.offWhite
                           : AppColors.lightBlue,
                 ),
-                SizedBox(width: 8,),
+                SizedBox(width: 8),
                 Text(
                   "Cairo , Egypt",
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color:
-                    provider.isDark()
-                        ? AppColors.offWhite
-                        : AppColors.lightBlue,
+                        provider.isDark()
+                            ? AppColors.offWhite
+                            : AppColors.lightBlue,
                   ),
                 ),
               ],
+            ),
+            SizedBox(height: 16),
+
+            DefaultTabController(
+              length: widget.categories.length,
+              child: TabBar(
+                dividerHeight: 0,
+                tabAlignment: TabAlignment.start,
+                indicator: BoxDecoration(),
+                labelPadding: EdgeInsets.symmetric(horizontal: 8),
+
+                isScrollable: true,
+                onTap: widget.changeSelectedCategory,
+                tabs:
+                    widget.categories
+                        .map(
+                          (e) => Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color:
+                                  widget.selectedCategory.id == e.id
+                                      ? Colors.white
+                                      : Colors.transparent,
+                              border: Border.all(width: 2, color: Colors.white),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  e.iconData,
+                                  color:
+                                      widget.selectedCategory.id == e.id
+                                          ? Theme.of(
+                                            context,
+                                          ).colorScheme.primary
+                                          : Colors.white,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  provider.isEn() ? e.nameEn : e.nameAr,
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium!.copyWith(
+                                    color:
+                                        widget.selectedCategory.id == e.id
+                                            ? Theme.of(
+                                              context,
+                                            ).colorScheme.primary
+                                            : Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList(),
+              ),
             ),
           ],
         ),

@@ -1,12 +1,11 @@
-import 'package:evently_c16_sun/data/models/category.dart';
-
 class Event {
   String? id;
   String? title;
   String? description;
   int? date;
   int? time;
-  Category? category;
+
+  int? categoryId;
 
   Event({
     this.id,
@@ -14,26 +13,26 @@ class Event {
     this.description,
     this.date,
     this.time,
-    this.category,
+    this.categoryId,
   });
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toFirebase() {
     return {
       "id": id,
       "title": title,
       "description": description,
       "date": date,
       "time": time,
-      "category": category?.id,
+      "categoryId": categoryId,
     };
   }
 
-  Event.fromFirestore(Map<String, dynamic> json) {
-    id = json["id"];
-    title = json["title"];
-    description = json["description"];
-    date = json["date"];
-    time = json["time"];
-    category = Category.categories.firstWhere((e) => e.id == json["category"]);
+  Event.fromFirebase(Map<String, dynamic> data) {
+    id = data["id"];
+    title = data["title"];
+    description = data["description"];
+    date = data["date"];
+    time = data["time"];
+    categoryId = data["categoryId"];
   }
 }
